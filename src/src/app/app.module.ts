@@ -3,14 +3,18 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { DateSliderComponent } from './date-slider/date-slider.component';
+import {NgxSliderModule} from '@angular-slider/ngx-slider';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DateSliderComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgxSliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]
