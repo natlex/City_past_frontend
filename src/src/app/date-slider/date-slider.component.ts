@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import {Options} from '@angular-slider/ngx-slider';
+import { ChangeContext, Options } from '@angular-slider/ngx-slider';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'app-date-slider',
   templateUrl: './date-slider.component.html',
-  styleUrls: ['./date-slider.component.css']
+  styleUrls: ['./date-slider.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DateSliderComponent implements OnInit {
+export class DateSliderComponent {
 
   value = 1810;
   highValue = 1860;
@@ -18,12 +19,7 @@ export class DateSliderComponent implements OnInit {
     tickValueStep: 10
   };
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-  onDateSliderChange(event: any): void {
+  onDateSliderChange(event: ChangeContext): void {
     console.log(`Start: ${event.value} End: ${event.highValue}`);
   }
 
