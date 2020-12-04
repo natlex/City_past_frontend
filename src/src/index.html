@@ -1,28 +1,16 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="utf-8">
   <title>CityPast</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <script src="https://api-maps.yandex.ru/2.1/?apikey=ca8ac6ea-745f-498f-a288-a00cafa50aac&load=package.full&lang=ru_RU"
-  type="text/javascript"> </script>
-  <script type="text/javascript">
-    ymaps.ready(function(){
-        // Указывается идентификатор HTML-элемента.
-        var ptz_map = new ymaps.Map("first_map", {
-            center: [61.78, 34.35],
-            zoom: 13
-        });
-        
-    });
-</script>
+  <script src="https://api-maps.yandex.ru/2.1/?apikey=ca8ac6ea-745f-498f-a288-a00cafa50aac&load=Map&lang=ru_RU"
+  type="text/javascript"></script>
 </head>
 <body>
-<p>Карта Петрозаводска</p>
-<center>
-<div id="first_map" style="width:800px; height:800px;"></div>
-</center>
+  <h1>Карта Петрозаводска</h1>
+    <app-root></app-root>
 </body>
 </html>
