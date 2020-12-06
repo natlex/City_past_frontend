@@ -1,3 +1,4 @@
+import { ChangeContext } from '@angular-slider/ngx-slider';
 import { Component } from '@angular/core';
 
 @Component({
@@ -8,7 +9,8 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'City-past';
 
-  outputSliderRange(range: string): void {
-    console.log(range);
+  outputSliderRange(range: ChangeContext): void {
+    const datesRange = `Start: ${range.value} End: ${range.highValue}`;
+    console.log(datesRange);
   }
 }

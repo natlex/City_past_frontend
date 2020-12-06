@@ -9,7 +9,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angul
 })
 export class DateSliderComponent {
 
-  @Output() onSliderChange = new EventEmitter<string>();
+  @Output() onSliderChange = new EventEmitter<ChangeContext>();
 
   value = 1810;
   highValue = 1860;
@@ -22,7 +22,6 @@ export class DateSliderComponent {
   };
 
   onDateSliderChange(event: ChangeContext): void {
-    const datesRange = `Start: ${event.value} End: ${event.highValue}`;
-    this.onSliderChange.emit(datesRange);
+    this.onSliderChange.emit(event);
   }
 }
