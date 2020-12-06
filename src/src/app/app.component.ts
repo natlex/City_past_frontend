@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'City-past';
+
+  outputSliderRange(range: string): void {
+    console.log(range);
+  }
 }
