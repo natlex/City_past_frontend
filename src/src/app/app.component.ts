@@ -1,5 +1,5 @@
-import { ChangeContext } from '@angular-slider/ngx-slider';
 import { Component } from '@angular/core';
+import { ISlider } from './date-slider/slider';
 
 @Component({
   selector: 'app-root',
@@ -9,8 +9,8 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'City-past';
 
-  outputSliderRange(range: ChangeContext): void {
-    const datesRange = `Start: ${range.value} End: ${range.highValue}`;
+  outputSliderRange(range: ISlider): void {
+    const datesRange = `Start: ${range.startDate.getFullYear()} End: ${range.endDate.getFullYear()}`;
     console.log(datesRange);
   }
 }
