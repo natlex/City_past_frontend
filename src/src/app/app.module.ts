@@ -3,12 +3,12 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { YandexmapComponent } from './yandex-map';
+import { mapComponent } from './map/map.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    YandexmapComponent
+    mapComponent
   ],
   imports: [
     BrowserModule,
