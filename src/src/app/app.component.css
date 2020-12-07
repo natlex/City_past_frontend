@@ -1,0 +1,32 @@
+header {
+    grid-area:header;
+    background: orange;
+    padding: 10px;
+}
+main {
+    grid-area:main;
+    background: yellow;
+    padding: 10px
+}
+aside{
+    grid-area:right-sidebar;
+    background: blue;
+    padding: 10px
+}
+
+
+#grid {
+ min-width:auto;
+ max-width:auto;
+ margin:0 auto 1px;
+ min-height:700px;
+ display:grid;
+ grid-gap:10px;
+ grid-template:100px 600px 100px / 200px 1fr 200px;
+ grid-template-areas:
+ "header header header"
+ "main main right-sidebar"
+ "footer footer footer"; 
+}
+
+
