@@ -5,11 +5,4 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './header-panel.component.html',
   styleUrls: ['./header-panel.component.css']
 })
-export class HeaderPanelComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-}
+export class HeaderPanelComponent {}
