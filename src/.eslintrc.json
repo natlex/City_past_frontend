@@ -1,0 +1,46 @@
+{
+  "root": true,
+  "extends": ["plugin:angular/johnpapa"],
+  "rules": {
+    "eol-last": "error",
+    "array-bracket-newline": ["error", { "multiline": true }],
+    "array-bracket-spacing": [
+      "error",
+      "always",
+      {
+        "singleValue": false
+      }
+    ],
+    "array-element-newline": ["error", "consistent"],
+    "object-curly-spacing": ["error", "always"],
+    "object-curly-newline": ["error", { "multiline": true }],
+    "object-property-newline": [
+      "error",
+      {
+        "allowAllPropertiesOnSameLine": true
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "parserOptions": {
+        "project": ["tsconfig.*?.json", "e2e/tsconfig.json"],
+        "createDefaultProgram": true
+      },
+      "extends": ["plugin:@angular-eslint/recommended"],
+      "rules": {}
+    },
+    {
+      "files": ["*.component.html"],
+      "extends": ["plugin:@angular-eslint/template/recommended"],
+      "rules": {
+        "max-len": ["error", { "code": 140 }]
+      }
+    },
+    {
+      "files": ["*.component.ts"],
+      "extends": ["plugin:@angular-eslint/template/process-inline-templates"]
+    }
+  ]
+}

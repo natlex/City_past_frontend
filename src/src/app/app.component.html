@@ -1,7 +1,7 @@
-
 <div class="grid">
     <main>
         <app-main>main</app-main>
+        <app-date-slider (onSliderChange)="outputSliderRange($event)"></app-date-slider>
     </main>
     
     <header>
@@ -12,4 +12,3 @@
         <app-right-sidebar>right-sidebar</app-right-sidebar>
     </aside>
 </div>
- 
