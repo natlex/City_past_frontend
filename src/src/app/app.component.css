@@ -15,7 +15,7 @@ aside{
 }
 
 
-#grid {
+.grid {
  min-width:auto;
  max-width:auto;
  margin:0 auto 1px;
