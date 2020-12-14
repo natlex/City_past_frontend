@@ -1,1 +1,16 @@
-<app-date-slider (onSliderChange)="outputSliderRange($event)"></app-date-slider>
+<div class="grid">
+  <header>
+    <app-header-panel>header</app-header-panel>
+  </header>
+
+  <main>
+    <app-main>main</app-main>
+    <app-date-slider
+      (onSliderChange)="outputSliderRange($event)"
+    ></app-date-slider>
+  </main>
+
+  <aside class="sidebar">
+    <app-right-sidebar>right-sidebar</app-right-sidebar>
+  </aside>
+</div>
