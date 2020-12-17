@@ -1,0 +1,19 @@
+<div mat-dialog-content>
+    <ngx-dropzone
+            accept="image/*"
+            [expandable]="true"
+            (change)="onSelect($event)">
+        <ngx-dropzone-label>Choose images to upload</ngx-dropzone-label>
+        <ngx-dropzone-preview
+                ngProjectAs="ngx-dropzone-preview"
+                *ngFor="let f of files"
+                [file]="f"
+                [removable]="true"
+                (removed)="onRemove(f)">
+            <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+        </ngx-dropzone-preview>
+    </ngx-dropzone>
+</div>
+<div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Close</button>
+</div>

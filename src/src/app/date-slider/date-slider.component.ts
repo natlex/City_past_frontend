@@ -1,5 +1,12 @@
 import { ChangeContext, Options } from '@angular-slider/ngx-slider';
-import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Output,
+} from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ImageUploadComponent } from '../image-upload/image-upload.component';
 import { ISlider } from './slider';
 
 @Component({
@@ -9,7 +16,6 @@ import { ISlider } from './slider';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DateSliderComponent {
-
   @Output() onSliderChange = new EventEmitter<ISlider>();
 
   value = 1810;
@@ -22,11 +28,20 @@ export class DateSliderComponent {
     tickValueStep: 10,
   };
 
+  constructor(private dialog: MatDialog) {}
+
+  openDialog(): void {
+    this.dialog.open(ImageUploadComponent);
+  }
+
   onDateSliderChange(event: ChangeContext): void {
     const startDate = new Date().setFullYear(event.value);
     const endDate = new Date().setFullYear(event.highValue as number);
 
-    const sliderRange: ISlider = {startDate: new Date(startDate), endDate: new Date(endDate)};
+    const sliderRange: ISlider = {
+      startDate: new Date(startDate),
+      endDate: new Date(endDate),
+    };
 
     this.onSliderChange.emit(sliderRange);
   }
