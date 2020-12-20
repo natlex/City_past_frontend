@@ -9,6 +9,8 @@ import { FooterComponent } from './footer/footer.component'
 import { MainComponent } from './main/main.component'
 import { RightSidebarComponent } from './right-sidebar/right-sidebar.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { NgxDropzoneModule } from 'ngx-dropzone';
+import { ImageUploadComponent } from './image-upload/image-upload.component';
 
 @NgModule({
   declarations: [
@@ -17,13 +19,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
     FooterComponent,
     MainComponent,
     RightSidebarComponent,
-    DateSliderComponent
+    DateSliderComponent,
+    ImageUploadComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    NgxSliderModule
+    NgxSliderModule,
+    NgxDropzoneModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
