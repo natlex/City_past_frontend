@@ -1,5 +1,4 @@
 import { Component } from '@angular/core'
-import { ISlider } from './date-slider/slider'
 
 @Component({
   selector: 'app-root',
@@ -8,9 +7,4 @@ import { ISlider } from './date-slider/slider'
 })
 export class AppComponent {
   title = 'City-past';
-
-  outputSliderRange (range: ISlider): void {
-    const datesRange = `Start: ${range.startDate.getFullYear()} End: ${range.endDate.getFullYear()}`
-    console.log(datesRange)
-  }
 }
