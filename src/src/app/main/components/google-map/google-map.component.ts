@@ -18,6 +18,7 @@ import { GoogleMapScriptLoaderService } from '../../services/google-map-script-l
 })
 export class GoogleMapComponent implements OnInit {
   loaded$ = of(false);
+  markerPositions: google.maps.LatLng[] = [];
 
   constructor(
     @Inject(GoogleMapConfigService)
@@ -31,5 +32,13 @@ export class GoogleMapComponent implements OnInit {
       `?key=${this._config.googleMapApiKey}`;
 
     this.loaded$ = this._loader.loadScript(url);
+  }
+
+  addMarker(evnt: google.maps.MouseEvent) {
+    this.markerPositions.push(evnt.latLng);
+
+    console.log(
+      `Latitude: ${evnt.latLng.lat()}, Longitude: ${evnt.latLng.lng()}`
+    );
   }
 }
