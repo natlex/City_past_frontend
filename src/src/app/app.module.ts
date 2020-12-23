@@ -8,6 +8,7 @@ import { RightSidebarComponent } from './right-sidebar/right-sidebar.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { environment } from '../environments/environment';
+import { MapOptions } from './main/constants/map-options';
 import { MapsModule } from './main/maps.module';
 import { GoogleMapConfig } from './main/models/google-map-config';
 import { MatButtonModule } from '@angular/material/button';
@@ -29,6 +30,7 @@ import { MatMenuModule } from '@angular/material/menu';
     BrowserAnimationsModule,
     MapsModule.forRoot(<GoogleMapConfig>{
       googleMapApiKey: environment.googleMapApiKey,
+      options: MapOptions,
     }),
     MatButtonModule,
     MatIconModule,

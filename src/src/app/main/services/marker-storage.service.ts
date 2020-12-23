@@ -42,7 +42,7 @@ export class MarkerStorageService {
     ]);
   }
 
-  createMarker(): Observable<string> {
-    return of('Marker was added successfully');
+  createMarker(marker: Marker): Observable<Marker> {
+    return of(marker).pipe();
   }
 }

@@ -2,14 +2,14 @@ import {
   ChangeDetectionStrategy,
   Component,
   Inject,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
+import { shareReplay, takeUntil, tap } from 'rxjs/operators';
 
-import { MapOptions } from '../../constants/map-options';
 import { GoogleMapConfig } from '../../models/google-map-config';
-import { Marker, MarkerCoordinates } from '../../models/marker';
+import { Marker } from '../../models/marker';
 import { GoogleMapConfigService } from '../../services/google-map-config.service';
 import { GoogleMapScriptLoaderService } from '../../services/google-map-script-loader.service';
 import { MarkerStorageService } from '../../services/marker-storage.service';
@@ -20,10 +20,12 @@ import { MarkerStorageService } from '../../services/marker-storage.service';
   templateUrl: './google-map.component.html',
   styleUrls: ['./google-map.component.css'],
 })
-export class GoogleMapComponent implements OnInit {
-  loaded$ = new BehaviorSubject<boolean>(false);
-  markers$ = new BehaviorSubject<Marker[]>([]);
-  options = MapOptions;
+export class GoogleMapComponent implements OnInit, OnDestroy {
+  readonly loaded$ = new BehaviorSubject<boolean>(false);
+  readonly markers$ = this._markerStorage.getAllMarkers().pipe(shareReplay());
+  readonly options = this._config.options;
+
+  private readonly _alive$ = new Subject<void>();
 
   constructor(
     @Inject(GoogleMapConfigService)
@@ -34,45 +36,39 @@ export class GoogleMapComponent implements OnInit {
 
   ngOnInit() {
     this._loadMap();
-
-    this._getMarkers();
   }
 
-  addMarker(evnt: google.maps.MouseEvent, markers: Marker[]) {
-    this._markerStorage
-      .createMarker()
+  ngOnDestroy() {
+    this._alive$.next();
+    this._alive$.complete();
+  }
+
+  addMarker(evnt: google.maps.MouseEvent) {
+    const newMarker = <Marker>{
+      coordinates: {
+        latitude: evnt.latLng.lat(),
+        longitude: evnt.latLng.lng(),
+      },
+    };
+
+    combineLatest([this._markerStorage.createMarker(newMarker), this.markers$])
       .pipe(
-        tap((result) => {
-          if (!result) return;
+        tap(([marker, markers]) => {
+          if (!marker) return;
 
-          const coordinates = <MarkerCoordinates>{
-            latitude: evnt.latLng.lat(),
-            longitude: evnt.latLng.lng(),
-          };
-
-          this._addMarker(coordinates, markers);
-        })
+          this._addMarker(marker, markers);
+        }),
+        takeUntil(this._alive$)
       )
       .subscribe();
   }
 
-  private _addMarker(coordinates: MarkerCoordinates, markers: Marker[]) {
-    const tempMarkers = markers;
-
-    tempMarkers.push(<Marker>{ coordinates });
-
-    this.markers$.next(tempMarkers);
+  private _addMarker(marker: Marker, markers: Marker[]) {
+    markers.push(marker);
 
     console.log(
-      `Latitude: ${coordinates.latitude}, Longitude: ${coordinates.longitude}`
+      `Latitude: ${marker.coordinates.latitude}, Longitude: ${marker.coordinates.longitude}`
     );
-  }
-
-  private _getMarkers() {
-    this._markerStorage
-      .getAllMarkers()
-      .pipe(tap((markers) => this.markers$.next(markers)))
-      .subscribe();
   }
 
   private _loadMap() {

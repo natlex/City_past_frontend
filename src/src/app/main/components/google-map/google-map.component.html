@@ -1,20 +1,18 @@
 <ng-container *ngIf="loaded$ | async">
-  <ng-container *ngIf="markers$ | async as markers">
-    <google-map
-      class="map"
-      height="100%"
-      (mapClick)="addMarker($event, markers)"
-      [options]="options"
-      width="100%"
-    >
-      <ng-container *ngFor="let marker of markers">
-        <map-marker
-          [position]="{
-            lat: marker.coordinates.latitude,
-            lng: marker.coordinates.longitude
-          }"
-        ></map-marker>
-      </ng-container>
-    </google-map>
-  </ng-container>
+  <google-map
+    class="map"
+    height="100%"
+    (mapClick)="addMarker($event)"
+    [options]="options"
+    width="100%"
+  >
+    <ng-container *ngFor="let marker of markers$ | async">
+      <map-marker
+        [position]="{
+          lat: marker.coordinates.latitude,
+          lng: marker.coordinates.longitude
+        }"
+      ></map-marker>
+    </ng-container>
+  </google-map>
 </ng-container>
