@@ -3,9 +3,8 @@ import {
   Component,
   Inject,
   OnDestroy,
-  OnInit,
 } from '@angular/core';
-import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
+import { combineLatest, Subject } from 'rxjs';
 import { shareReplay, takeUntil, tap } from 'rxjs/operators';
 
 import { GoogleMapConfig } from '../../models/google-map-config';
@@ -20,8 +19,11 @@ import { MarkerStorageService } from '../../services/marker-storage.service';
   templateUrl: './google-map.component.html',
   styleUrls: ['./google-map.component.css'],
 })
-export class GoogleMapComponent implements OnInit, OnDestroy {
-  readonly loaded$ = new BehaviorSubject<boolean>(false);
+export class GoogleMapComponent implements OnDestroy {
+  private readonly _url =
+    this._config.googleMapUrlBase + `?key=${this._config.googleMapApiKey}`;
+
+  readonly loaded$ = this._loader.loadScript(this._url).pipe(shareReplay());
   readonly markers$ = this._markerStorage.getAllMarkers().pipe(shareReplay());
   readonly options = this._config.options;
 
@@ -33,10 +35,6 @@ export class GoogleMapComponent implements OnInit, OnDestroy {
     private readonly _loader: GoogleMapScriptLoaderService,
     private readonly _markerStorage: MarkerStorageService
   ) {}
-
-  ngOnInit() {
-    this._loadMap();
-  }
 
   ngOnDestroy() {
     this._alive$.next();
@@ -69,13 +67,5 @@ export class GoogleMapComponent implements OnInit, OnDestroy {
     console.log(
       `Latitude: ${marker.coordinates.latitude}, Longitude: ${marker.coordinates.longitude}`
     );
-  }
-
-  private _loadMap() {
-    const url =
-      'https://maps.googleapis.com/maps/api/js' +
-      `?key=${this._config.googleMapApiKey}`;
-
-    this._loader.loadScript(url).subscribe(() => this.loaded$.next(true));
   }
 }

@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { environment } from '../environments/environment';
 import { MapOptions } from './main/constants/map-options';
+import { MapUrlBase } from './main/constants/map-url-base';
 import { MapsModule } from './main/maps.module';
 import { GoogleMapConfig } from './main/models/google-map-config';
 import { MatButtonModule } from '@angular/material/button';
@@ -30,6 +31,7 @@ import { MatMenuModule } from '@angular/material/menu';
     BrowserAnimationsModule,
     MapsModule.forRoot(<GoogleMapConfig>{
       googleMapApiKey: environment.googleMapApiKey,
+      googleMapUrlBase: MapUrlBase,
       options: MapOptions,
     }),
     MatButtonModule,
