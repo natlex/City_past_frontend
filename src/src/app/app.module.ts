@@ -10,6 +10,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { environment } from '../environments/environment';
 import { MapsModule } from './main/maps.module';
 import { GoogleMapConfig } from './main/models/google-map-config';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -25,6 +30,11 @@ import { GoogleMapConfig } from './main/models/google-map-config';
     MapsModule.forRoot(<GoogleMapConfig>{
       googleMapApiKey: environment.googleMapApiKey,
     }),
+    MatButtonModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatMenuModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

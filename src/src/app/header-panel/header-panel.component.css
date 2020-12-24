@@ -1,0 +1,33 @@
+.header-container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.header-container-right {
+  width: 50%;
+  display: flex;
+  margin-left: auto;
+}
+
+.header-container-right .mat-button {
+  margin-right: 15%;
+}
+
+.login-search {
+  display: flex;
+  margin-left: auto;
+  width: 38%;
+}
+
+.login-search .mat-button {
+  margin-right: 0;
+}
+
+mat-icon, span{
+  color: #A4C6CB;
+}
+
+.search-panel {
+  width: 80%;
+}

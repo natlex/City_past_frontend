@@ -1,1 +1,29 @@
-<p>header-panel works!</p>
+<div class="header-container">
+  <div class="logo">
+    <img src="assets/img/logo.svg" alt="logo">
+  </div>
+  <div class="header-container-right">
+    <button mat-button>
+      <mat-icon>info</mat-icon>
+      <span>О проекте</span>
+    </button>
+    <button mat-button>
+      <mat-icon>add_location_alt</mat-icon>
+      <span>Добавить место</span>
+    </button>
+    <div class="login-search">
+      <mat-form-field class="search-panel">
+        <input
+          type="text"
+          placeholder="Введите адрес"
+          matInput>
+        <button mat-button matSuffix mat-icon-button>
+          <mat-icon>search</mat-icon>
+        </button>
+      </mat-form-field>
+      <button mat-button>
+          <img src="assets/img/User avatar.svg" alt="user">
+      </button>
+    </div>
+  </div>
+</div>
