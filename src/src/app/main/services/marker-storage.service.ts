@@ -43,6 +43,6 @@ export class MarkerStorageService {
   }
 
   createMarker(marker: Marker): Observable<Marker> {
-    return of(marker).pipe();
+    return of(marker);
   }
 }

@@ -1,23 +1,31 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 
-import { GoogleMapConfig } from './models/google-map-config';
-import { GoogleMapConfigService } from './services/google-map-config.service';
+import { environment } from '../../environments/environment';
+import { GoogleMapApiConfig } from './models/google-map-api-config';
+import { GoogleMapViewConfig } from './models/google-map-view-config';
+import { GoogleMapApiConfigService } from './services/google-map-api-config.service';
+import { GoogleMapViewConfigService } from './services/google-map-view-config.service';
 
 @NgModule({
   imports: [CommonModule, HttpClientModule, HttpClientJsonpModule],
-})
-export class MapsModule {
-  static forRoot(config: GoogleMapConfig): ModuleWithProviders<MapsModule> {
-    return {
-      ngModule: MapsModule,
-      providers: [
-        {
-          provide: GoogleMapConfigService,
-          useValue: config,
+  providers: [
+    {
+      provide: GoogleMapApiConfigService,
+      useValue: <GoogleMapApiConfig>{
+        googleMapApiKey: environment.googleMapApiKey,
+      },
+    },
+    {
+      provide: GoogleMapViewConfigService,
+      useValue: <GoogleMapViewConfig>{
+        options: <google.maps.MapOptions>{
+          center: { lat: 61.783333, lng: 34.333333 },
+          zoom: 13,
         },
-      ],
-    };
-  }
-}
+      },
+    },
+  ],
+})
+export class MapsModule {}

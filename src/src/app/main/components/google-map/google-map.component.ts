@@ -1,16 +1,11 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Inject,
-  OnDestroy,
-} from '@angular/core';
-import { combineLatest, Subject } from 'rxjs';
-import { shareReplay, takeUntil, tap } from 'rxjs/operators';
+import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { ReplaySubject } from 'rxjs';
+import { map, scan, shareReplay, tap } from 'rxjs/operators';
 
-import { GoogleMapConfig } from '../../models/google-map-config';
+import { GoogleMapViewConfig } from '../../models/google-map-view-config';
 import { Marker } from '../../models/marker';
-import { GoogleMapConfigService } from '../../services/google-map-config.service';
 import { GoogleMapScriptLoaderService } from '../../services/google-map-script-loader.service';
+import { GoogleMapViewConfigService } from '../../services/google-map-view-config.service';
 import { MarkerStorageService } from '../../services/marker-storage.service';
 
 @Component({
@@ -19,29 +14,35 @@ import { MarkerStorageService } from '../../services/marker-storage.service';
   templateUrl: './google-map.component.html',
   styleUrls: ['./google-map.component.css'],
 })
-export class GoogleMapComponent implements OnDestroy {
-  private readonly _url =
-    this._config.googleMapUrlBase + `?key=${this._config.googleMapApiKey}`;
-
-  readonly loaded$ = this._loader.loadScript(this._url).pipe(shareReplay());
-  readonly markers$ = this._markerStorage.getAllMarkers().pipe(shareReplay());
+export class GoogleMapComponent {
+  readonly loaded$ = this._loader.loadScript().pipe(shareReplay());
   readonly options = this._config.options;
 
-  private readonly _alive$ = new Subject<void>();
+  private readonly _addedMarker$ = new ReplaySubject<Marker>(1);
+
+  private readonly _gottenMarkers$ = this._markerStorage
+    .getAllMarkers()
+    .pipe(shareReplay());
+
+  readonly addedMarkersForMap$ = this._addedMarker$.pipe(
+    scan(
+      (markers, marker) => [...markers, this._makeMapMarker(marker)],
+      <google.maps.LatLng[]>[]
+    )
+  );
+
+  readonly gottenMarkersForMap$ = this._gottenMarkers$.pipe(
+    map((markers) => markers.map((marker) => this._makeMapMarker(marker)))
+  );
 
   constructor(
-    @Inject(GoogleMapConfigService)
-    private readonly _config: GoogleMapConfig,
+    @Inject(GoogleMapViewConfigService)
+    private readonly _config: GoogleMapViewConfig,
     private readonly _loader: GoogleMapScriptLoaderService,
     private readonly _markerStorage: MarkerStorageService
   ) {}
 
-  ngOnDestroy() {
-    this._alive$.next();
-    this._alive$.complete();
-  }
-
-  addMarker(evnt: google.maps.MouseEvent) {
+  addMarker(evnt: google.maps.MapMouseEvent) {
     const newMarker = <Marker>{
       coordinates: {
         latitude: evnt.latLng.lat(),
@@ -49,23 +50,23 @@ export class GoogleMapComponent implements OnDestroy {
       },
     };
 
-    combineLatest([this._markerStorage.createMarker(newMarker), this.markers$])
+    this._markerStorage
+      .createMarker(newMarker)
       .pipe(
-        tap(([marker, markers]) => {
-          if (!marker) return;
-
-          this._addMarker(marker, markers);
-        }),
-        takeUntil(this._alive$)
+        tap((marker) => this._addedMarker$.next(marker)),
+        tap((marker) =>
+          console.log(
+            `Latitude: ${marker.coordinates.latitude}, Longitude: ${marker.coordinates.longitude}`
+          )
+        )
       )
       .subscribe();
   }
 
-  private _addMarker(marker: Marker, markers: Marker[]) {
-    markers.push(marker);
-
-    console.log(
-      `Latitude: ${marker.coordinates.latitude}, Longitude: ${marker.coordinates.longitude}`
+  private _makeMapMarker(marker: Marker): google.maps.LatLng {
+    return new google.maps.LatLng(
+      marker.coordinates.latitude,
+      marker.coordinates.longitude
     );
   }
 }
