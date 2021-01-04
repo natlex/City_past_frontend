@@ -7,9 +7,7 @@ import { FooterComponent } from './footer/footer.component'
 import { RightSidebarComponent } from './right-sidebar/right-sidebar.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
-import { environment } from '../environments/environment';
 import { MapsModule } from './main/maps.module';
-import { GoogleMapConfig } from './main/models/google-map-config';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -27,9 +25,7 @@ import { MatMenuModule } from '@angular/material/menu';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MapsModule.forRoot(<GoogleMapConfig>{
-      googleMapApiKey: environment.googleMapApiKey,
-    }),
+    MapsModule,
     MatButtonModule,
     MatIconModule,
     MatFormFieldModule,
