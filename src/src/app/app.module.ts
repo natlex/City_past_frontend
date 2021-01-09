@@ -13,6 +13,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
+import { environment } from 'src/environments/environment';
+import { GoogleMapsConfigModule } from 'src/app/google-maps';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,7 @@ import { MatMenuModule } from '@angular/material/menu';
     MatFormFieldModule,
     MatInputModule,
     MatMenuModule,
+    GoogleMapsConfigModule.forRoot(environment.googleMapApiKey),
   ],
   providers: [],
   bootstrap: [AppComponent]

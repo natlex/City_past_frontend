@@ -4,7 +4,6 @@ import { map, scan, shareReplay, tap } from 'rxjs/operators';
 
 import { GoogleMapViewConfig } from '../../models/google-map-view-config';
 import { Marker } from '../../models/marker';
-import { GoogleMapScriptLoaderService } from '../../services/google-map-script-loader.service';
 import { GoogleMapViewConfigService } from '../../services/google-map-view-config.service';
 import { MarkerStorageService } from '../../services/marker-storage.service';
 
@@ -15,7 +14,6 @@ import { MarkerStorageService } from '../../services/marker-storage.service';
   styleUrls: ['./google-map.component.css'],
 })
 export class GoogleMapComponent {
-  readonly loaded$ = this._loader.loadScript().pipe(shareReplay());
   readonly options = this._config.options;
 
   private readonly _addedMarker$ = new ReplaySubject<Marker>(1);
@@ -38,7 +36,6 @@ export class GoogleMapComponent {
   constructor(
     @Inject(GoogleMapViewConfigService)
     private readonly _config: GoogleMapViewConfig,
-    private readonly _loader: GoogleMapScriptLoaderService,
     private readonly _markerStorage: MarkerStorageService
   ) {}
 
