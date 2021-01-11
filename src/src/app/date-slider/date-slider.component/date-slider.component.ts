@@ -1,6 +1,6 @@
 import { ChangeContext, Options } from '@angular-slider/ngx-slider';
 import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
-import { ISlider } from './slider';
+import { ISlider } from '../slider';
 
 @Component({
   selector: 'app-date-slider',
