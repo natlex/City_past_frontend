@@ -3,9 +3,9 @@
     <img src="assets/img/logo.svg" alt="logo">
   </div>
   <div class="header-container-right">
-    <button mat-button>
+    <button mat-button (click)="openModal(SiteSectionTypes.about)">
       <mat-icon>info</mat-icon>
-      <span>О проекте</span>
+      <span>{{ SiteSectionTypeNames.about }}</span>
     </button>
     <button mat-button>
       <mat-icon>add_location_alt</mat-icon>

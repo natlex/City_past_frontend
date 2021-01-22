@@ -1,10 +1,11 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { SharedModule } from 'src/app/shared';
+
 import { GoogleMapViewConfig } from './models/google-map-view-config';
 import { GoogleMapViewConfigService } from './services/google-map-view-config.service';
 
 @NgModule({
-  imports: [CommonModule],
+  imports: [SharedModule],
   providers: [
     {
       provide: GoogleMapViewConfigService,

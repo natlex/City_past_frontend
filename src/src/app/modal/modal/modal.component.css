@@ -1,0 +1,17 @@
+:host {
+  display: contents;
+}
+
+.close-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(50%, -50%);
+}
+
+.close-button img {
+  --close-button-icon-size: 35px;
+
+  width: var(--close-button-icon-size);
+  height: var(--close-button-icon-size);
+}
