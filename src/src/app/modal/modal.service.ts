@@ -1,21 +1,25 @@
 import { ComponentType } from '@angular/cdk/overlay';
 import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 
 import { ModalComponent } from './modal/modal.component';
+import { ModalData } from './models/modal-data';
 
 @Injectable({ providedIn: 'root' })
 export class ModalService {
   constructor(private readonly _modal: MatDialog) {}
 
-  openModal<T>(
-    component: ComponentType<T>,
+  openModal<InnerComponentType>(
+    component: ComponentType<InnerComponentType>,
     title?: string
   ): Observable<boolean> {
-    const dialogRef = this._modal.open(ModalComponent);
-
-    dialogRef.componentInstance.createModalComponent(component, title);
+    const dialogRef = this._modal.open(ModalComponent, <MatDialogConfig>{
+      data: <ModalData<InnerComponentType>>{
+        component,
+        title,
+      },
+    });
 
     return dialogRef.afterClosed();
   }

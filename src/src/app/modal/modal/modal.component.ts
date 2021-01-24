@@ -1,11 +1,15 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   ComponentFactoryResolver,
-  Type,
+  Inject,
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+
+import { ModalData } from '../models/modal-data';
 
 @Component({
   selector: 'app-modal',
@@ -13,7 +17,7 @@ import {
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.css'],
 })
-export class ModalComponent {
+export class ModalComponent<InnerComponentType> implements AfterViewInit {
   title?: string;
 
   get hasTitle() {
@@ -23,13 +27,19 @@ export class ModalComponent {
   @ViewChild('content', { static: true, read: ViewContainerRef })
   private readonly _containerRef!: ViewContainerRef;
 
-  constructor(private readonly resolver: ComponentFactoryResolver) {}
+  constructor(
+    @Inject(MAT_DIALOG_DATA)
+    private readonly _data: ModalData<InnerComponentType>,
+    private readonly _resolver: ComponentFactoryResolver
+  ) {
+    this.title = this._data.title;
+  }
 
-  createModalComponent<T>(componentType: Type<T>, title?: string) {
-    const factory = this.resolver.resolveComponentFactory(componentType);
+  ngAfterViewInit() {
+    const factory = this._resolver.resolveComponentFactory(
+      this._data.component
+    );
 
     this._containerRef.createComponent(factory);
-
-    this.title = title;
   }
 }
