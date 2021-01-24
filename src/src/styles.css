@@ -1,3 +1,7 @@
+:root {
+  --close-icon-color: #796363;
+}
+
 html, body { height: 100%; }
 
 body {
@@ -7,4 +11,6 @@ body {
 
 .app-modal {
   position: absolute !important;
+
+  width: 80vw;
 }

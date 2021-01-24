@@ -26,8 +26,6 @@ export class ModalComponent {
   constructor(private readonly resolver: ComponentFactoryResolver) {}
 
   createModalComponent<T>(componentType: Type<T>, title?: string) {
-    console.log(title);
-
     const factory = this.resolver.resolveComponentFactory(componentType);
 
     this._containerRef.createComponent(factory);

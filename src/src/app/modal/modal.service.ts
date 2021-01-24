@@ -1,12 +1,11 @@
 import { ComponentType } from '@angular/cdk/overlay';
 import { Injectable } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 
-import { ModalModule } from './modal.module';
 import { ModalComponent } from './modal/modal.component';
 
-@Injectable({ providedIn: ModalModule })
+@Injectable({ providedIn: 'root' })
 export class ModalService {
   constructor(private readonly _modal: MatDialog) {}
 
@@ -14,12 +13,7 @@ export class ModalService {
     component: ComponentType<T>,
     title?: string
   ): Observable<boolean> {
-    const config = <MatDialogConfig>{
-      autoFocus: true,
-      panelClass: 'app-modal',
-    };
-
-    const dialogRef = this._modal.open(ModalComponent, config);
+    const dialogRef = this._modal.open(ModalComponent);
 
     dialogRef.componentInstance.createModalComponent(component, title);
 

@@ -7,11 +7,15 @@
   top: 0;
   right: 0;
   transform: translate(50%, -50%);
+
+  color: var(--close-icon-color);
 }
 
-.close-button img {
+.close-icon {
   --close-button-icon-size: 35px;
 
+  font-size: var(--close-button-icon-size);
+  line-height: var(--close-button-icon-size);
   width: var(--close-button-icon-size);
   height: var(--close-button-icon-size);
 }
