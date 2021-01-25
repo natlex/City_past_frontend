@@ -6,6 +6,7 @@ import { HeaderPanelComponent } from './header-panel/header-panel.component'
 import { FooterComponent } from './footer/footer.component'
 import { RightSidebarComponent } from './right-sidebar/right-sidebar.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { ModalModule } from 'src/app/modal';
 
 import { MapsModule } from './main/maps.module';
 import { MatButtonModule } from '@angular/material/button';
@@ -33,6 +34,7 @@ import { GoogleMapsConfigModule } from 'src/app/google-maps';
     MatFormFieldModule,
     MatInputModule,
     MatMenuModule,
+    ModalModule,
     GoogleMapsConfigModule.forRoot(environment.googleMapApiKey),
   ],
   providers: [],

@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { RouterModule } from '@angular/router';
+import { AboutComponent } from 'src/app/about';
 import { DateSliderModule } from 'src/app/date-slider';
 
 import { GoogleMapComponent } from './components/google-map/google-map.component';
@@ -10,7 +11,7 @@ import { routes } from './main.routes';
 import { MapsModule } from './maps.module';
 
 @NgModule({
-  declarations: [MainComponent, GoogleMapComponent],
+  declarations: [AboutComponent, MainComponent, GoogleMapComponent],
   imports: [
     CommonModule,
     GoogleMapsModule,

@@ -1,4 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { AboutComponent } from 'src/app/about';
+import { ModalService } from 'src/app/modal';
 
 @Component({
   selector: 'app-header-panel',
@@ -6,4 +8,10 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrls: ['./header-panel.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderPanelComponent {}
+export class HeaderPanelComponent {
+  constructor(private readonly _modal: ModalService) {}
+
+  openAboutModal() {
+    this._modal.openModal(AboutComponent, 'О проекте');
+  }
+}
