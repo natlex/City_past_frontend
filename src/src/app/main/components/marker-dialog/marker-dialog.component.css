@@ -1,0 +1,31 @@
+:host {
+  display: contents;
+}
+
+.description-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.load-file {
+  display: inline-flex;
+  width: 268px;
+  height: 123px;
+  align-items: center;
+  justify-content: center;
+
+  background: #c4c4c44c;
+  border-radius: 15px;
+}
+
+.load-file-container {
+  text-align: center;
+}
+
+.marker-dialog {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  grid-column-gap: 226px;
+  grid-template-columns: 1fr 1fr;
+}

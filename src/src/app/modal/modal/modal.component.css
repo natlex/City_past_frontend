@@ -6,16 +6,40 @@
   position: absolute;
   top: 0;
   right: 0;
-  transform: translate(50%, -50%);
 
   color: var(--close-icon-color);
+  transform: translate(50%, -50%);
 }
 
 .close-icon {
   --close-button-icon-size: 35px;
 
-  font-size: var(--close-button-icon-size);
-  line-height: var(--close-button-icon-size);
   width: var(--close-button-icon-size);
   height: var(--close-button-icon-size);
+
+  font-size: var(--close-button-icon-size);
+  line-height: var(--close-button-icon-size);
+}
+
+.submit-button {
+  --button-size: 75px;
+
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: var(--button-size);
+  height: var(--button-size);
+
+  color: var(--submit-icon-color);
+  transform: translate(50%, 50%);
+}
+
+.submit-icon {
+  --close-button-icon-size: 70px;
+
+  width: var(--close-button-icon-size);
+  height: var(--close-button-icon-size);
+
+  font-size: var(--close-button-icon-size);
+  line-height: var(--close-button-icon-size);
 }

@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { map, scan, shareReplay, tap } from 'rxjs/operators';
+import { MarkerDialogComponent } from 'src/app/main/components/marker-dialog';
+import { ModalService } from 'src/app/modal';
 
 import { GoogleMapViewConfig } from '../../models/google-map-view-config';
 import { Marker } from '../../models/marker';
@@ -36,10 +38,11 @@ export class GoogleMapComponent {
   constructor(
     @Inject(GoogleMapViewConfigService)
     private readonly _config: GoogleMapViewConfig,
-    private readonly _markerStorage: MarkerStorageService
+    private readonly _markerStorage: MarkerStorageService,
+    private readonly _modal: ModalService
   ) {}
 
-  addMarker(evnt: google.maps.MouseEvent) {
+  openMarkerModal(evnt: google.maps.MouseEvent) {
     const newMarker = <Marker>{
       coordinates: {
         latitude: evnt.latLng.lat(),
@@ -47,15 +50,17 @@ export class GoogleMapComponent {
       },
     };
 
-    this._markerStorage
-      .createMarker(newMarker)
+    this._modal
+      .openModal<MarkerDialogComponent, Marker>(
+        MarkerDialogComponent,
+        (component) => {
+          component.marker = newMarker;
+        }
+      )
       .pipe(
-        tap((marker) => this._addedMarker$.next(marker)),
-        tap((marker) =>
-          console.log(
-            `Latitude: ${marker.coordinates.latitude}, Longitude: ${marker.coordinates.longitude}`
-          )
-        )
+        tap((result) => {
+          this._addedMarker$.next(result);
+        })
       )
       .subscribe();
   }

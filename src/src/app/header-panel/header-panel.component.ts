@@ -12,6 +12,6 @@ export class HeaderPanelComponent {
   constructor(private readonly _modal: ModalService) {}
 
   openAboutModal() {
-    this._modal.openModal(AboutComponent, 'О проекте');
+    this._modal.openModal(AboutComponent);
   }
 }

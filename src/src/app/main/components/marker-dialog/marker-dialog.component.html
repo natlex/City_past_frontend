@@ -1,0 +1,86 @@
+<div class="marker-dialog">
+  <form
+    #form="ngForm"
+    class="description-form"
+    [id]="modalFormId"
+    (ngSubmit)="submit()"
+  >
+    <mat-label>Адрес:</mat-label>
+
+    <mat-form-field>
+      <input
+        cdkFocusInitial
+        matInput
+        name="address"
+        [(ngModel)]="address"
+        required
+        type="text"
+      />
+    </mat-form-field>
+
+    <mat-label>Название объекта:</mat-label>
+
+    <mat-form-field>
+      <input matInput name="name" [(ngModel)]="name" required type="text" />
+    </mat-form-field>
+
+    <mat-label>Год снимка:</mat-label>
+
+    <mat-form-field>
+      <input
+        (click)="openDatePicker(datePicker)"
+        [matDatepicker]="datePicker"
+        matInput
+        name="year"
+        [(ngModel)]="year"
+        required
+        type="text"
+      />
+
+      <mat-datepicker-toggle
+        [for]="datePicker"
+        matSuffix
+      ></mat-datepicker-toggle>
+
+      <mat-datepicker
+        #datePicker
+        startView="multi-year"
+        (yearSelected)="yearSelected($event, datePicker)"
+      ></mat-datepicker>
+    </mat-form-field>
+
+    <mat-label>Ссылка не ресурс:</mat-label>
+
+    <mat-form-field>
+      <input matInput name="url" [(ngModel)]="url" type="url" />
+    </mat-form-field>
+
+    <mat-label>Описание к фотографии:</mat-label>
+
+    <mat-form-field>
+      <textarea
+        matInput
+        name="description"
+        [(ngModel)]="description"
+        type="text"
+      ></textarea>
+    </mat-form-field>
+  </form>
+
+  <div class="load-file-container">
+    <p>
+      * Выберите файлы, нажав на кнопку добавления или перетащите их в
+      выделенную область
+    </p>
+
+    <div class="load-file">Перетащите изображение сюда</div>
+
+    <button mat-icon-button>
+      <mat-icon>add_circle</mat-icon>
+    </button>
+
+    <p>
+      <a>Информация о правилах публикации и размерах файла</a>
+    </p>
+  </div>
+</div>
