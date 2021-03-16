@@ -5,8 +5,15 @@ import {
   ViewChild,
 } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { MAT_DATE_FORMATS } from '@angular/material/core';
-import { MatDatepicker } from '@angular/material/datepicker';
+import {
+  DateAdapter,
+  MAT_DATE_FORMATS,
+  NativeDateAdapter,
+} from '@angular/material/core';
+import {
+  MAT_DATEPICKER_SCROLL_STRATEGY,
+  MatDatepicker,
+} from '@angular/material/datepicker';
 import { tap } from 'rxjs/operators';
 import { YEAR_MODE } from 'src/app/main/constants';
 import { Marker } from 'src/app/main/models';
@@ -22,6 +29,14 @@ import { ModalComponentConfig } from 'src/app/modal/models';
     {
       provide: MAT_DATE_FORMATS,
       useValue: YEAR_MODE,
+    },
+    {
+      provide: DateAdapter,
+      useClass: NativeDateAdapter,
+    },
+    {
+      provide: MAT_DATEPICKER_SCROLL_STRATEGY,
+      useValue: () => {},
     },
   ],
 })

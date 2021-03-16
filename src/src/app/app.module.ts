@@ -10,8 +10,6 @@ import { ModalModule } from 'src/app/modal';
 
 import { MapsModule } from './main/maps.module';
 import { MatButtonModule } from '@angular/material/button';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -32,12 +30,10 @@ import { GoogleMapsConfigModule } from 'src/app/google-maps';
     BrowserAnimationsModule,
     MapsModule,
     MatButtonModule,
-    MatDatepickerModule,
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
     MatMenuModule,
-    MatNativeDateModule,
     ModalModule,
     GoogleMapsConfigModule.forRoot(environment.googleMapApiKey),
   ],

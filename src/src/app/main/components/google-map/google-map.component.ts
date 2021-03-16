@@ -42,7 +42,7 @@ export class GoogleMapComponent {
     private readonly _modal: ModalService
   ) {}
 
-  openMarkerModal(evnt: google.maps.MouseEvent) {
+  addMarker(evnt: google.maps.MouseEvent) {
     const newMarker = <Marker>{
       coordinates: {
         latitude: evnt.latLng.lat(),
