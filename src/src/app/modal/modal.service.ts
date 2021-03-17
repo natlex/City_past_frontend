@@ -2,6 +2,7 @@ import { ComponentType } from '@angular/cdk/overlay';
 import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 
 import { ModalComponent } from './modal/modal.component';
 import { ModalData } from './models/modal-data';
@@ -10,17 +11,24 @@ import { ModalData } from './models/modal-data';
 export class ModalService {
   constructor(private readonly _modal: MatDialog) {}
 
-  openModal<InnerComponentType>(
+  openModal<InnerComponentType, ResultType>(
     component: ComponentType<InnerComponentType>,
-    title?: string
-  ): Observable<boolean> {
-    const dialogRef = this._modal.open(ModalComponent, <MatDialogConfig>{
+    componentInitializer?: (component: InnerComponentType) => void
+  ): Observable<ResultType> {
+    const dialogRef = this._modal.open<
+      ModalData<InnerComponentType>,
+      InnerComponentType,
+      ResultType
+    >(ModalComponent, <MatDialogConfig>{
       data: <ModalData<InnerComponentType>>{
         component,
-        title,
+        componentInitializer,
       },
     });
 
-    return dialogRef.afterClosed();
+    return dialogRef.afterClosed().pipe(
+      filter((i) => typeof i !== 'undefined'),
+      map((i) => <ResultType>i)
+    );
   }
 }

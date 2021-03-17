@@ -1,6 +1,6 @@
-import { ComponentType } from '@angular/cdk/portal';
+import { ComponentType } from '@angular/cdk/overlay';
 
 export interface ModalData<InnerComponentType> {
   component: ComponentType<InnerComponentType>;
-  title?: string;
+  componentInitializer?: (component: InnerComponentType) => void;
 }
